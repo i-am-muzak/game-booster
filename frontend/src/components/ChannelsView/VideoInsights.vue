@@ -35,11 +35,56 @@
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'name'">
               <div class="flex items-center">
-                <img
-                  src="https://storage.googleapis.com/game_booster/demo/RoyalMatch_101.png"
-                  width="32"
-                  class="rounded-[3px]"
-                />
+                <a-tooltip placement="bottom">
+                  <template #title>
+                    <div class="text-center">
+                      Play video creative <br />
+                      (Royal Match's creative used for demo)
+                    </div>
+                  </template>
+                  <div
+                    class="video-thumbnail-section cursor-pointer"
+                    @click="showVideoPreviewDialog"
+                  >
+                    <img
+                      src="https://storage.googleapis.com/game_booster/demo/RoyalMatch_101_thumbnail.png"
+                      width="48"
+                      class="rounded-[3px] video-thumbnail"
+                    />
+                    <span
+                      class="play-icon p-1.5 rounded-full flex items-center justify-center"
+                      :class="{
+                        'bg-gray-900/50': getDarkMode,
+                        'bg-[#fff]/50': !getDarkMode,
+                      }"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-player-play-filled"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          stroke="none"
+                          d="M0 0h24v24H0z"
+                          fill="none"
+                        ></path>
+                        <path
+                          d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
+                          stroke-width="0"
+                          fill="currentColor"
+                        ></path>
+                      </svg>
+                    </span>
+                  </div>
+                </a-tooltip>
+
                 <span class="ml-3">
                   {{ record.name }}
                 </span>
@@ -53,12 +98,19 @@
         </a-table>
       </div>
     </div>
+    <VideoPreview
+      :poster="creativePoster"
+      :source="creativeSource"
+      :visible="visible"
+      @closed="handlePreviewDialogOnClose"
+    />
   </div>
 </template>
 
 <script>
 import { useGlobalStore } from "@/stores/global";
 import { mapState } from "pinia";
+import VideoPreview from "./VideoPreview.vue";
 
 export default {
   computed: {
@@ -107,7 +159,6 @@ export default {
           sorter: (a, b) => a.impressions - b.impressions,
           sortDirections: ["descend", "ascend"],
         },
-
         {
           title: "Clicks",
           key: "clicks",
@@ -154,9 +205,37 @@ export default {
           created_at: 1696458546,
         };
       }),
+      visible: false,
+      creativePoster: null,
+      creativeSource: null,
     };
+  },
+  components: { VideoPreview },
+  methods: {
+    showVideoPreviewDialog() {
+      this.creativePoster =
+        "https://storage.googleapis.com/game_booster/demo/RoyalMatch_101.png";
+      this.creativeSource =
+        "https://storage.googleapis.com/game_booster/demo/RoyalMatch_101.mp4";
+      this.visible = true;
+    },
+    handlePreviewDialogOnClose() {
+      this.creativePoster = null;
+      this.creativeSource = null;
+      this.visible = false;
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.video-thumbnail-section {
+  position: relative;
+  .play-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+</style>
