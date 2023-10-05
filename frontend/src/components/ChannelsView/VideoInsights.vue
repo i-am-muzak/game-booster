@@ -34,15 +34,21 @@
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'name'">
-              <router-link to="" class="text-sky-500 hover:text-sky-400">
-                {{ record.name }}
-              </router-link>
+              <div class="flex items-center">
+                <img
+                  src="https://storage.googleapis.com/game_booster/demo/RoyalMatch_101.png"
+                  width="32"
+                  class="rounded-[3px]"
+                />
+                <span class="ml-3">
+                  {{ record.name }}
+                </span>
+              </div>
             </template>
 
             <template v-else-if="column.key === 'spend'">
               <span> $ {{ record.spend }} </span>
             </template>
-
           </template>
         </a-table>
       </div>
@@ -86,7 +92,6 @@ export default {
           dataIndex: "cpc",
           sorter: (a, b) => a.cpc - b.cpc,
           sortDirections: ["descend", "ascend"],
-          defaultSortOrder: "descend",
         },
         {
           title: "CPM",
@@ -94,7 +99,6 @@ export default {
           dataIndex: "cpm",
           sorter: (a, b) => a.cpm - b.cpm,
           sortDirections: ["descend", "ascend"],
-          defaultSortOrder: "descend",
         },
         {
           title: "Impressions",
@@ -147,7 +151,7 @@ export default {
           conversions: Math.floor(Math.random() * 100000),
           clicks: Math.floor(Math.random() * 1000),
           tiktok_id: (Math.random() + 1).toString(36).substring(2, 12),
-          created_at: 1696458546
+          created_at: 1696458546,
         };
       }),
     };

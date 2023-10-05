@@ -13,11 +13,14 @@ import "ant-design-vue/dist/reset.css";
 import "./assets/tailwind.css";
 
 import VueApexCharts from "vue3-apexcharts";
+import VuePlyr from 'vue-plyr'
+import 'vue-plyr/dist/vue-plyr.css'
 
 
 app.use(createPinia());
 app.use(router);
 app.use(Antd);
 app.use(VueApexCharts);
+app.use(VuePlyr);
 
 app.mount("#app");
