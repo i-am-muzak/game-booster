@@ -56,7 +56,6 @@ import GridItem from "@/components/HomeView/GridItem.vue";
 import Metrices from "../components/HomeView/Metrices.vue";
 import CostsChart from "../components/HomeView/CostsChart.vue";
 import PlatformChart from "../components/HomeView/PlatformChart.vue";
-import DayBasedMetrices from "../components/HomeView/DayBasedMetrices.vue";
 
 export default {
   data() {
@@ -69,7 +68,6 @@ export default {
     Metrices,
     CostsChart,
     PlatformChart,
-    DayBasedMetrices
 },
   computed: {
     ...mapState(useGlobalStore, ["getDarkMode"]),

@@ -24,7 +24,7 @@
       </div>
       <!-- <div class="my-5">
         <div class="flex items-center justify-between">
-          <h1 class="text-[20px]">Overview</h1>
+          <h1 class="text-[20px]">Trend</h1>
           <div>
             <a-range-picker v-model:value="date" />
           </div>
@@ -39,27 +39,30 @@
         >
           <Metrices />
         </div>
-      </div>
-      <div class="my-5 flex gap-3">
-        <div
-          class="p-3 rounded-[3px] w-8/12"
-          :class="{
-            'bg-[#1a1a1a]': getDarkMode,
-            'bg-[#fff]': !getDarkMode,
-          }"
-        >
-          <CostsChart />
-        </div>
-        <div
-          class="p-3 rounded-[3px] w-4/12"
-          :class="{
-            'bg-[#1a1a1a]': getDarkMode,
-            'bg-[#fff]': !getDarkMode,
-          }"
-        >
-          <PlatformChart />
-        </div>
       </div> -->
+      <div class="my-5 ">
+        <div
+          class="p-3 rounded-[3px]"
+          :class="{
+            'bg-[#1a1a1a]': getDarkMode,
+            'bg-[#fff]': !getDarkMode,
+          }"
+        >
+          <TrendAnalysis />
+        </div>
+      </div>
+
+      <div class="my-5 ">
+        <div
+          class="p-3 rounded-[3px]"
+          :class="{
+            'bg-[#1a1a1a]': getDarkMode,
+            'bg-[#fff]': !getDarkMode,
+          }"
+        >
+          <VideoInsights />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,10 +71,8 @@
 import { useGlobalStore } from "../stores/global";
 import { mapState } from "pinia";
 import GridItem from "@/components/ChannelsView/GridItem.vue";
-import Metrices from "../components/HomeView/Metrices.vue";
-import CostsChart from "../components/HomeView/CostsChart.vue";
-import PlatformChart from "../components/HomeView/PlatformChart.vue";
-import DayBasedMetrices from "../components/HomeView/DayBasedMetrices.vue";
+import TrendAnalysis from "../components/ChannelsView/TrendAnalysis.vue";
+import VideoInsights from "../components/ChannelsView/VideoInsights.vue";
 
 export default {
   data() {
@@ -81,10 +82,8 @@ export default {
   },
   components: {
     GridItem,
-    Metrices,
-    CostsChart,
-    PlatformChart,
-    DayBasedMetrices,
+    TrendAnalysis,
+    VideoInsights
   },
   computed: {
     ...mapState(useGlobalStore, ["getDarkMode"]),
